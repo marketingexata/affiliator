@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JP Smart Affiliator</title>
+<style>
+:root{--d:#7a0148;--m:#c2185b;--p:#ff4f8b;--s:#ffe3ef;--g:#e6b85c;--r:#ff3d4f;--t:#3a0a26}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--t);min-height:100vh;background:linear-gradient(170deg,#6f0043,#a10556 45%,#d81b78);background-attachment:fixed;padding-bottom:40px;overflow-x:hidden}
+.petal{position:fixed;top:-30px;font-size:18px;pointer-events:none;animation:fall linear infinite;z-index:0;opacity:.8}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg) translateX(40px)}}
+header{text-align:center;color:#fff;padding:22px 16px 0;position:relative;z-index:1}
+header h1{font-size:26px;letter-spacing:.5px;text-shadow:0 2px 10px #0006}
+header h1 span{color:var(--g)}
+header p{font-size:13px;opacity:.9;margin-top:4px}
+.hero{display:block;width:100%;max-width:520px;margin:6px auto -2px}
+main{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:0 14px}
+.card{background:#fff;border-radius:26px;padding:20px 18px;box-shadow:0 14px 40px #0005;border-top:5px solid var(--g)}
+.dots{display:flex;justify-content:space-between;margin-bottom:6px}
+.dot{flex:1;text-align:center;font-size:11px;color:#b88;font-weight:600}
+.dot i{display:block;width:30px;height:30px;line-height:30px;margin:0 auto 3px;border-radius:50%;background:var(--s);font-style:normal;transition:.3s}
+.dot.on{color:var(--m)}.dot.on i{background:linear-gradient(135deg,var(--p),var(--m));color:#fff;transform:scale(1.15);box-shadow:0 4px 10px #c2185b66}
+.dot.done i{background:var(--g);color:#fff}
+.bar{height:6px;background:var(--s);border-radius:9px;overflow:hidden;margin-bottom:16px}
+.bar b{display:block;height:100%;width:25%;background:linear-gradient(90deg,var(--p),var(--g));border-radius:9px;transition:.4s}
+.step{display:none;animation:in .35s}.step.show{display:block}
+@keyframes in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+h2{font-size:19px;color:var(--m);margin-bottom:2px}
+.sub{font-size:13px;color:#8a5570;margin-bottom:14px}
+.f{margin-bottom:13px}
+label.l{display:block;font-weight:600;font-size:14px;margin-bottom:5px}
+.h{font-size:12px;color:#8a5570;margin-top:3px}
+input[type=text],input[type=tel],select{width:100%;padding:13px 14px;border:2px solid #f3c6d9;border-radius:14px;font-size:16px;background:#fff9fc;color:var(--t);outline:none;transition:.2s;font-family:inherit}
+input:focus,select:focus{border-color:var(--p);box-shadow:0 0 0 4px #ff4f8b26}
+.row{display:flex;gap:8px}.row select{width:96px;flex:none}
+.err input,.err select,.err .chips,.err .agree{border-color:var(--r)!important}
+.em{display:none;color:var(--r);font-size:12px;margin-top:4px;font-weight:600}.err .em{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:8px;border:2px solid transparent;border-radius:14px;padding:2px}
+.chip input{display:none}
+.chip span{display:block;padding:10px 14px;border:2px solid #f3c6d9;border-radius:30px;font-size:14px;background:#fff9fc;cursor:pointer;transition:.2s;user-select:none}
+.chip input:checked+span{background:linear-gradient(135deg,var(--p),var(--m));color:#fff;border-color:transparent;transform:scale(1.04);box-shadow:0 4px 10px #c2185b55}
+.opts .chip{flex:1 1 100%}.opts .chip span{border-radius:16px;padding:14px;font-weight:600}
+.agree{display:flex;gap:10px;align-items:flex-start;background:#fff4f8;border:2px solid #f3c6d9;border-radius:16px;padding:13px;font-size:14px}
+.agree input{width:22px;height:22px;accent-color:var(--m);flex:none;margin-top:2px}
+.link{background:none;border:none;color:var(--m);font-weight:700;text-decoration:underline;font-size:14px;margin:10px 0 4px;cursor:pointer;font-family:inherit}
+.nav{display:flex;gap:10px;margin-top:18px}
+.btn{flex:1;padding:14px;border:none;border-radius:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s}
+.btn:active{transform:scale(.96)}
+.pri{background:linear-gradient(135deg,var(--p),var(--m));color:#fff;box-shadow:0 6px 16px #c2185b66}
+.sec{background:var(--s);color:var(--m)}
+.wa{background:#25d366;color:#fff;box-shadow:0 6px 16px #25d36666}
+.ov{position:fixed;inset:0;background:#40002acc;display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.ov.show{display:flex}
+.md{background:#fff;border-radius:24px;padding:20px;width:100%;max-width:480px;max-height:88vh;display:flex;flex-direction:column;animation:pop .3s;border-top:5px solid var(--g)}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+.md h3{color:var(--m);margin-bottom:10px;font-size:18px}
+.sc{overflow-y:auto;font-size:13px;line-height:1.55;padding-right:4px;margin-bottom:14px}
+.sc h4{color:var(--m);margin:12px 0 4px;font-size:14px}.sc ul,.sc ol{padding-left:20px}.sc p{margin:5px 0}
+.sc table{width:100%;border-collapse:collapse;margin:6px 0}.sc td,.sc th{border:1px solid #f3c6d9;padding:5px 8px;text-align:left}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed #f3c6d9;font-size:14px}
+.sum b{color:var(--m);flex:none}.sum span{text-align:right;word-break:break-word}
+.ctr{text-align:center}.big{font-size:54px}
+.pb{height:16px;background:var(--s);border-radius:20px;overflow:hidden;margin:14px 0 6px}
+.pb b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p),var(--g));transition:width .2s}
+.pc{font-size:30px;font-weight:800;color:var(--m)}
+</style>
+</head>
+<body>
+<header>
+<svg class="hero" viewBox="0 0 400 110" aria-hidden="true"><circle cx="200" cy="62" r="42" fill="#ff5a6e"/><path d="M60 110 L170 40 Q200 28 230 40 L340 110Z" fill="#6a63c0"/><path d="M158 50 L170 40 Q200 28 230 40 L242 50 L226 46 L214 60 L200 46 L186 60 L174 46Z" fill="#fff"/><path d="M0 110 Q100 85 200 100 T400 90 V110Z" fill="#ff4f8b"/></svg>
+<h1>🌸 JP Smart <span>Affiliator</span></h1>
+<p>Daftar jadi Partner Kolaborasi · Indonesia Festival Odaiba Tokyo 2026</p>
+</header>
+<main><div class="card">
+<div class="dots" id="dots"></div>
+<div class="bar"><b id="bar"></b></div>
+
+<form id="form" novalidate onsubmit="return false">
+<section class="step show" data-s="1">
+<h2>👤 Data diri kamu</h2><p class="sub">Isi sesuai identitas ya!</p>
+<div class="f"><label class="l">Nama lengkap (sesuai identitas)</label><input type="text" id="nama" autocomplete="name"><div class="em">Nama lengkap wajib diisi</div></div>
+<div class="f"><label class="l">Nama panggilan</label><input type="text" id="panggilan"><div class="h">Nama yang biasa dipakai sehari-hari</div><div class="em">Nama panggilan wajib diisi</div></div>
+<div class="f"><label class="l">Nomor WhatsApp aktif</label><div class="row"><select id="kode"><option>+62</option><option>+81</option></select><input type="tel" id="wa" inputmode="numeric" placeholder="81234567890"></div><div class="em">Isi nomor WhatsApp yang benar (8–13 angka)</div></div>
+<div class="f"><label class="l">Domisili saat ini</label><input type="text" id="domisili" placeholder="Contoh: Tokyo, Saitama"><div class="em">Domisili wajib diisi</div></div>
+</section>
+
+<section class="step" data-s="2">
+<h2>📱 Media sosial &amp; teman</h2><p class="sub">Supaya kami tahu kamu bisa promosi lewat mana.</p>
+<div class="f"><label class="l">Akun Instagram</label><input type="text" id="ig" placeholder="@username"><div class="h">Tidak punya? Tulis "tidak ada"</div><div class="em">Akun Instagram wajib diisi</div></div>
+<div class="f"><label class="l">Akun TikTok</label><input type="text" id="tt" placeholder="@username"><div class="h">Tidak punya? Tulis "tidak ada"</div><div class="em">Akun TikTok wajib diisi</div></div>
+<div class="f"><label class="l">Kamu mau promosi ke siapa saja?</label><div class="h" style="margin:-2px 0 8px">Boleh pilih lebih dari satu 👇</div>
+<div class="chips" id="net"></div><div class="em">Pilih minimal satu</div></div>
+</section>
+
+<section class="step" data-s="3">
+<h2>💰 Informasi pembayaran</h2><p class="sub">Fee dibayar maksimal 20 Desember 2026.</p>
+<div class="f"><label class="l">Mau dibayar lewat mana?</label><div class="chips opts" id="pay"></div><div class="em">Pilih salah satu metode</div></div>
+<div class="f"><label class="l" id="lrek">Nomor rekening / nomor akun bank</label><input type="text" id="rek" inputmode="numeric"><div class="em">Nomor rekening wajib diisi</div></div>
+<div class="f"><label class="l">Nama pemilik rekening</label><input type="text" id="pemilik"><div class="h">Persis seperti nama di rekening</div><div class="em">Nama pemilik rekening wajib diisi</div></div>
+</section>
+
+<section class="step" data-s="4">
+<h2>✅ Persetujuan</h2><p class="sub">Langkah terakhir, hampir selesai!</p>
+<div class="f"><label class="agree"><input type="checkbox" id="setuju"><span>Saya bersedia bergabung sebagai Collaboration Partner JP SMART SIM dan telah membaca serta menyetujui Syarat &amp; Ketentuan program kolaborasi.</span></label><div class="em">Centang dulu untuk melanjutkan</div></div>
+<button type="button" class="link" onclick="openOv('tc')">📄 Baca Terms &amp; Condition</button>
+</section>
+
+<div class="nav"><button type="button" class="btn sec" id="back" style="display:none">← Kembali</button><button type="button" class="btn pri" id="next">Lanjut →</button></div>
+</form>
+</div></main>
+
+<div class="ov" id="tc"><div class="md"><h3>📄 Syarat &amp; Ketentuan</h3><div class="sc">
+<p><b>SYARAT &amp; KETENTUAN (TERMS &amp; CONDITIONS)<br>PROGRAM COLLABORATION<br>JP SMART SIM Part Of Exata Indonesia<br>INDONESIA FESTIVAL ODAIBA TOKYO 2026</b><br>Periode Event: 12–13 Desember 2026<br>Lokasi: Odaiba, Tokyo, Jepang</p>
+<h4>1. TENTANG PROGRAM KOLABORASI</h4>
+<p>Dalam rangka mengikuti acara INDONESIA FESTIVAL ODAIBA TOKYO 2026 pada tanggal 12–13 Desember 2026, JP SMART SIM membuka kesempatan kolaborasi kepada teman-teman yang memiliki jaringan pertemanan, followers media sosial, komunitas, maupun relasi di lingkungan tempat tinggal dan tempat kerja.</p>
+<p>Program ini bertujuan agar masyarakat Indonesia yang akan bekerja, sedang bekerja, maupun sedang tinggal di Jepang bisa mendapatkan informasi yang lebih luas, mendapatkan koneksi internet yang lebih nyaman dan mengenal JPSMARTSIM.</p>
+<p>Melalui program ini, kami mengajak teman-teman untuk menjadi Partner Kolaborasi JP SMART SIM dan mendapatkan fee dari setiap transaksi pelanggan yang berhasil melalui rekomendasi masing-masing.</p>
+<h4>2. KONSEP DAN MEKANISME KOLABORASI</h4>
+<p>Konsep kolaborasi ini sangat sederhana dan fleksibel. Partner Kolaborasi cukup merekomendasikan JP SMART SIM kepada calon pelanggan melalui jaringan yang dimiliki, seperti:</p>
+<ul><li>Teman atau kenalan pribadi.</li><li>Teman satu apartemen (apato).</li><li>Teman kerja atau rekan satu perusahaan.</li><li>Grup WhatsApp dan komunitas Indonesia di Jepang.</li><li>Followers dan audiens media sosial.</li><li>Komunitas pelajar, pekerja, maupun masyarakat Indonesia lainnya.</li></ul>
+<p>Partner Kolaborasi diberikan kebebasan untuk menentukan metode promosi yang paling sesuai dengan karakter jaringan dan audiens masing-masing. Media promosi yang dapat digunakan antara lain:</p>
+<ul><li>Personal Chat (Japri).</li><li>Grup WhatsApp atau grup komunitas.</li><li>Instagram Story, Feed, dan Reels.</li><li>TikTok.</li><li>Media sosial lainnya.</li><li>Rekomendasi secara langsung atau dari mulut ke mulut.</li></ul>
+<p>Tidak ada kewajiban untuk melakukan promosi dengan metode tertentu selama informasi yang disampaikan sesuai dengan ketentuan resmi JP SMART SIM.</p>
+<h4>3. FASILITAS DAN DUKUNGAN PROMOSI</h4>
+<p>Untuk memudahkan proses kolaborasi, JP SMART SIM akan menyediakan materi pendukung promosi kepada seluruh Partner Kolaborasi. Dukungan tersebut meliputi:</p>
+<ul><li>Poster dan gambar promosi resmi JP SMART SIM.</li><li>Informasi produk dan layanan yang dapat dibagikan kepada calon pelanggan.</li><li>Materi promosi untuk kebutuhan WhatsApp dan media sosial.</li><li>Bantuan penyesuaian desain atau materi promosi apabila terdapat kebutuhan khusus.</li><li>Materi promosi khusus yang dapat disesuaikan dengan kebutuhan komunitas, grup, atau jaringan tertentu.</li></ul>
+<p>Partner Kolaborasi dapat mengajukan permintaan materi promosi tambahan kepada tim JP SMART SIM selama masih sesuai dengan identitas dan ketentuan promosi perusahaan.</p>
+<h4>4. SISTEM REFERRAL DAN PENCATATAN TRANSAKSI</h4>
+<p>Setiap Partner Kolaborasi akan mendapatkan Kode Referral khusus yang digunakan sebagai identitas sumber rekomendasi pelanggan. Mekanisme referral adalah sebagai berikut:</p>
+<ol><li>Partner Affiliate membagikan informasi dan materi promosi JP SMART SIM kepada calon pelanggan.</li><li>Partner Affiliate mengarahkan calon pelanggan untuk melakukan pemesanan langsung melalui kontak resmi JP SMART SIM.</li><li>Calon pelanggan wajib menyampaikan Kode Referral milik Partner Affiliate pada saat melakukan pemesanan.</li><li>Tim JP SMART SIM akan mencatat dan memverifikasi setiap transaksi berdasarkan Kode Referral yang diterima.</li><li>Transaksi yang berhasil dan telah memenuhi kriteria closing akan masuk dalam perhitungan fee Partner Affiliate.</li></ol>
+<p><b>Penting:</b><br>- Closing yang dimaksud adalah ketika pelanggan sudah melakukan pemesanan dan melakukan pembayaran<br>- Pastikan calon pelanggan mencantumkan Kode Referral sebelum atau pada saat melakukan pemesanan agar transaksi dapat tercatat dengan benar.</p>
+<h4>5. KETENTUAN FEE / KOMISI KOLABORASI</h4>
+<p>Sebagai bentuk apresiasi atas kontribusi Partner Kolaborasi, JP SMART SIM memberikan fee dengan ketentuan berikut:</p>
+<p><b>Fee sebesar Rp50.000 (lima puluh ribu rupiah) untuk setiap 1 (satu) pelanggan yang berhasil closing.</b></p>
+<p>Ketentuan pemberian fee:</p>
+<ul><li>Fee dihitung berdasarkan jumlah pelanggan yang berhasil melakukan transaksi (pemesanan &amp; pembayaran)</li><li>Setiap 1 pelanggan yang berhasil closing, partner kolaborasi mendapatkan fee sebesar Rp50.000.</li><li>Tidak terdapat batas maksimal jumlah pelanggan yang dapat direkomendasikan selama program masih berlaku.</li><li>Semakin banyak pelanggan yang berhasil closing melalui referral, semakin besar total fee yang akan diterima.</li><li>Transaksi harus tercatat menggunakan Kode Referral yang telah diberikan.</li><li>Transaksi yang dibatalkan, tidak dibayar, atau tidak memenuhi kriteria closing tidak dihitung sebagai transaksi yang menghasilkan fee.</li></ul>
+<p>Contoh perhitungan fee:</p>
+<table><tr><th>Jumlah pelanggan closing</th><th>Total fee</th></tr><tr><td>1 orang</td><td>Rp50.000</td></tr><tr><td>5 orang</td><td>Rp250.000</td></tr><tr><td>10 orang</td><td>Rp500.000</td></tr><tr><td>20 orang</td><td>Rp1.000.000</td></tr><tr><td>50 orang</td><td>Rp2.500.000</td></tr></table>
+<h4>6. REKAPITULASI DAN TRANSPARANSI FEE</h4>
+<p>JP SMART SIM berkomitmen untuk melakukan pencatatan transaksi dan perhitungan fee secara transparan. Ketentuan rekapitulasi:</p>
+<ul><li>Seluruh transaksi yang masuk melalui Kode Referral Partner Kolaborasi akan dicatat oleh tim JP SMART SIM.</li><li>Total transaksi setiap Partner Kolaborasi akan direkap berdasarkan data pemesanan dan status pembayaran pelanggan.</li><li>Jumlah pelanggan yang berhasil closing akan dicocokkan dengan data internal JP SMART SIM.</li><li>Partner Kolaborasi dapat melakukan konfirmasi kepada tim apabila terdapat perbedaan data atau transaksi yang belum tercatat.</li><li>Hasil akhir perhitungan fee akan menjadi dasar pembayaran kepada masing-masing Partner Kolaborasi.</li></ul>
+<h4>7. WAKTU DAN MEKANISME PEMBAYARAN</h4>
+<p>Pembayaran fee akan dilakukan setelah seluruh rangkaian acara INDONESIA FESTIVAL ODAIBA TOKYO 2026 selesai.</p>
+<p><b>Batas maksimal pembayaran: 20 Desember 2026.</b> Dengan ketentuan:</p>
+<ul><li>Pembayaran dilakukan paling lambat 1 (satu) minggu setelah event selesai, dengan batas akhir tanggal 20 Desember 2026.</li><li>Pembayaran dilakukan berdasarkan hasil rekapitulasi dan verifikasi transaksi.</li><li>Partner Kolaborasi wajib memberikan informasi rekening pembayaran yang benar dan aktif.</li></ul>
+<p>Metode pembayaran yang tersedia:</p>
+<ol><li><b>Transfer Bank Indonesia (IDR)</b><br>Pembayaran dilakukan dalam mata uang Rupiah ke rekening bank Indonesia milik Partner Kolaborasi.</li><li><b>Japan Post Bank / Yucho Bank (JPY)</b><br>Pembayaran dapat dilakukan dalam mata uang Yen Jepang ke rekening Yucho milik Partner Kolaborasi. Nilai pembayaran dalam Yen akan disesuaikan berdasarkan ketentuan kurs atau konversi pada hari pembayaran fee yaitu maksimal tanggal 20 Desember 2026.</li></ol>
+<h4>8. KETENTUAN PROMOSI DAN ETIKA KOLABORASI</h4>
+<p>Untuk menjaga profesionalitas dan nama baik JP SMART SIM dan Partner Kolaborasi, seluruh Partner Kolaborasi diharapkan mematuhi ketentuan berikut:</p>
+<ul><li>Menyampaikan informasi produk dan layanan berdasarkan materi resmi dari JP SMART SIM.</li><li>Tidak menjanjikan harga, bonus, maupun fasilitas tambahan yang belum mendapatkan persetujuan dari JP SMART SIM.</li><li>Tidak menggunakan identitas, logo, maupun materi promosi JP SMART SIM untuk tujuan yang bertentangan dengan hukum atau merugikan pihak lain.</li><li>Menjaga komunikasi yang baik dan profesional dengan calon pelanggan.</li><li>Tidak melakukan tindakan manipulasi referral atau transaksi untuk mendapatkan fee secara tidak sah.</li></ul>
+<h4>9. VERIFIKASI DAN KETENTUAN TRANSAKSI</h4>
+<p>JP SMART SIM berhak melakukan verifikasi terhadap seluruh transaksi yang diklaim melalui Kode Referral. Transaksi dinyatakan memenuhi kriteria closing apabila:</p>
+<ul><li>Pelanggan melakukan pemesanan melalui kontak resmi JP SMART SIM.</li><li>Kode Referral Partner Kolaborasi tercatat pada transaksi.</li><li>Pelanggan telah menyelesaikan pembayaran sesuai ketentuan pemesanan.</li><li>Transaksi telah dikonfirmasi berhasil oleh tim JP SMART SIM.</li></ul>
+<h4>10. PENUTUP DAN PERSETUJUAN</h4>
+<p>Dengan mengikuti Program Collaboration JP SMART SIM, Partner Kolaborasi dianggap telah membaca, memahami, dan menyetujui seluruh syarat dan ketentuan yang tercantum dalam dokumen ini.</p>
+<p>JP SMART SIM mengucapkan terima kasih atas kesediaan teman-teman untuk berkolaborasi dan menjadi bagian dari upaya memperkenalkan layanan JP SMART SIM kepada masyarakat Indonesia di Jepang.</p>
+<p>Kami percaya bahwa kolaborasi yang baik dapat memberikan manfaat bagi semua pihak.</p>
+<p><b>Penting !</b><br>Bagi Partner Kolaborasi, kami membuka kesempatan teman-teman untuk ikut serta juga menjadi Volunteer di booth kami pada acara 12-13 Desember mendatang. Ketentuannya secara langsung akan kami sampaikan setelah peninjauan secara bertahap dengan mempertimbangkan beberapa hal.</p>
+<p>Mari berkembang dan Seru-Seruan bersama JPSMARTSIM!</p>
+<p><b>JP SMART SIM</b><br>Your Trusted SIM Partner in Japan<br>INDONESIA FESTIVAL ODAIBA TOKYO 2026<br>12–13 Desember 2026 | Odaiba, Tokyo, Japan</p>
+</div><button class="btn pri" onclick="closeOv('tc')">Tutup</button></div></div>
+
+<div class="ov" id="sm"><div class="md"><h3>🔍 Cek lagi datamu ya</h3><div class="sc sum" id="sumList"></div>
+<div class="nav" style="margin:0"><button class="btn sec" onclick="closeOv('sm')">✏️ Edit data</button><button class="btn pri" id="send">Kirim 🚀</button></div></div></div>
+
+<div class="ov" id="ld"><div class="md ctr"><div class="big">📤</div><h3>Mengirim datamu…</h3><div class="pb"><b id="pf"></b></div><div class="pc" id="pt">0%</div><p class="h">Jangan tutup halaman ini ya 🙏</p></div></div>
+
+<div class="ov" id="ty"><div class="md ctr"><div class="big">🎉🌸</div><h3>Terima kasih, <span id="tn"></span>!</h3><p style="font-size:14px;margin-bottom:16px">Datamu sudah kami terima. Konfirmasi ke WhatsApp supaya tim kami segera memproses ya!</p><button class="btn wa" id="waBtn">💬 Konfirmasi ke WhatsApp</button></div></div>
+
+<script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzmQXo4QoWFK_kdfHYShQeo5FtdzF8R2mVWVfCBgQq4wNVTaFTJHgCRO_jjJX244BsXlw/exec';
+const WA_NUM='6281188899744';
+const NET=['Teman kerja','Teman satu apartemen (Apato)','Komunitas Indonesia di Jepang','Grup WhatsApp','Followers Instagram','Followers TikTok','Komunitas pelajar / mahasiswa','Jaringan pertemanan pribadi'];
+const PAY=['Bank Indonesia (Rupiah)','Japan Post Bank / Yucho (Yen)'];
+const TTL=['Data diri','Sosmed','Bayar','Setuju'];
+const $=id=>document.getElementById(id);
+let cur=1,locked=false;
+$('net').innerHTML=NET.map(n=>`<label class="chip"><input type="checkbox" name="net" value="${n}"><span>${n}</span></label>`).join('');
+$('pay').innerHTML=PAY.map(n=>`<label class="chip"><input type="radio" name="pay" value="${n}"><span>${n}</span></label>`).join('');
+document.querySelectorAll('input[name=pay]').forEach(r=>r.onchange=()=>{const y=r.value.includes('Yucho');$('lrek').textContent=y?'Nomor akun Yucho':'Nomor rekening bank Indonesia';$('rek').placeholder=y?'Contoh: 12345-12345678':'Contoh: BCA 1234567890'});
+for(let i=0;i<14;i++){const p=document.createElement('span');p.className='petal';p.textContent='🌸';p.style.cssText=`left:${Math.random()*100}%;animation-duration:${8+Math.random()*10}s;animation-delay:${-Math.random()*12}s;font-size:${12+Math.random()*14}px`;document.body.appendChild(p)}
+function openOv(i){$(i).classList.add('show')}function closeOv(i){$(i).classList.remove('show')}
+function show(n){cur=n;document.querySelectorAll('.step').forEach(s=>s.classList.toggle('show',+s.dataset.s===n));
+$('dots').innerHTML=TTL.map((t,i)=>`<div class="dot ${i+1===n?'on':''} ${i+1<n?'done':''}"><i>${i+1<n?'✓':i+1}</i>${t}</div>`).join('');
+$('bar').style.width=n*25+'%';$('back').style.display=n>1?'block':'none';$('next').textContent=n===4?'Kirim Form 🚀':'Lanjut →';scrollTo({top:0,behavior:'smooth'})}
+const val=id=>$(id).value.trim();
+function bad(el,b){const f=el.closest('.f');f.classList.toggle('err',b);return b}
+function waNum(){return $('wa').value.replace(/\D/g,'').replace(/^0+/,'')}
+function check(n){let e=false;const t=(id,fn)=>{if(bad($(id),fn?fn():!val(id)))e=true};
+if(n===1){t('nama');t('panggilan');t('wa',()=>{const l=waNum().length;return l<8||l>13});t('domisili')}
+if(n===2){t('ig');t('tt');if(bad($('net'),!document.querySelector('input[name=net]:checked')))e=true}
+if(n===3){if(bad($('pay'),!document.querySelector('input[name=pay]:checked')))e=true;t('rek');t('pemilik')}
+if(n===4){if(bad($('setuju'),!$('setuju').checked))e=true}
+if(e){const x=document.querySelector('.step.show .err');x&&x.scrollIntoView({behavior:'smooth',block:'center'})}
+return !e}
+function data(){return{nama:val('nama'),panggilan:val('panggilan'),whatsapp:$('kode').value+waNum(),domisili:val('domisili'),instagram:val('ig'),tiktok:val('tt'),jaringan:[...document.querySelectorAll('input[name=net]:checked')].map(c=>c.value).join(', '),metode:document.querySelector('input[name=pay]:checked').value,rekening:val('rek'),pemilik:val('pemilik'),setuju:'Ya'}}
+$('next').onclick=()=>{if(locked||!check(cur))return;if(cur<4)return show(cur+1);
+const d=data(),L={nama:'Nama lengkap',panggilan:'Panggilan',whatsapp:'WhatsApp',domisili:'Domisili',instagram:'Instagram',tiktok:'TikTok',jaringan:'Promosi ke',metode:'Metode bayar',rekening:'No. rekening',pemilik:'Nama pemilik'};
+$('sumList').innerHTML=Object.keys(L).map(k=>`<div><b>${L[k]}</b><span>${d[k].replace(/[<>&]/g,'')}</span></div>`).join('');openOv('sm')};
+$('back').onclick=()=>{if(!locked&&cur>1)show(cur-1)};
+$('send').onclick=async()=>{if(locked)return;const d=data();closeOv('sm');openOv('ld');
+let p=0;const set=v=>{$('pf').style.width=v+'%';$('pt').textContent=Math.round(v)+'%'};set(0);
+const iv=setInterval(()=>{p+=p<60?4:p<85?1.5:.3;if(p>92)p=92;set(p)},150);
+try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)});
+clearInterval(iv);set(100);locked=true;document.querySelectorAll('input,select').forEach(x=>x.disabled=true);$('next').disabled=$('back').disabled=true;
+setTimeout(()=>{closeOv('ld');$('tn').textContent=d.panggilan;openOv('ty')},600);
+$('waBtn').onclick=()=>{location.href='https://wa.me/'+WA_NUM+'?text='+encodeURIComponent('halo saya afiliator '+d.panggilan+' sudah isi form ya')}
+}catch(err){clearInterval(iv);closeOv('ld');alert('Yah, pengiriman gagal 😢 Cek internetmu lalu coba kirim lagi ya.');openOv('sm')}};
+show(1);
+</script>
+</body>
+</html>
